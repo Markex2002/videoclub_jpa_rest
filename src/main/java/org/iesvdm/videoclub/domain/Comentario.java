@@ -5,10 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Builder
 @Entity
 public class Comentario {
 
