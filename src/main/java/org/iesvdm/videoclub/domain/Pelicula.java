@@ -63,8 +63,8 @@ public class Pelicula {
             inverseJoinColumns = @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria"))
     Set<Categoria> categorias = new HashSet<>();
 
-    @Column(name = "ultima_actualizacion")
-    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",  shape = JsonFormat.Shape.STRING)
-    private Date ultimaActualizacion;
-
+    //
+    //@Column(name = "ultima_actualizacion")
+    //@JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",  shape = JsonFormat.Shape.STRING)
+    //private Date ultimaActualizacion;
 }
