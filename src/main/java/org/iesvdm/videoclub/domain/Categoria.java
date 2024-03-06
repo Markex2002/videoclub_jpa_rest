@@ -3,10 +3,8 @@ package org.iesvdm.videoclub.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -14,6 +12,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "categoria")
+
+@EqualsAndHashCode(of = "nombre")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,6 +25,8 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoria")
     private long id;
+
+    @NaturalId
     private String nombre;
 
     @ManyToMany(

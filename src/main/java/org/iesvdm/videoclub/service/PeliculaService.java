@@ -3,9 +3,16 @@ package org.iesvdm.videoclub.service;
 import org.iesvdm.videoclub.domain.Pelicula;
 import org.iesvdm.videoclub.exception.PeliculaNotFoundException;
 import org.iesvdm.videoclub.repository.PeliculaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PeliculaService {
@@ -20,6 +27,21 @@ public class PeliculaService {
         return this.peliculaRepository.findAll();
     }
 
+
+    public Map<String, Object> all(int pagina, int tamanio) {
+        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id_pelicula").ascending());
+
+        Page<Pelicula> pageAll = this.peliculaRepository.findAll(paginado);
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("peliculas", pageAll.getContent());
+        response.put("currentPage", pageAll.getNumber());
+        response.put("totalItems", pageAll.getTotalElements());
+        response.put("totalPages", pageAll.getTotalPages());
+
+        return response;
+    }
+
     public Pelicula save(Pelicula pelicula) {
         return this.peliculaRepository.save(pelicula);
     }
@@ -31,10 +53,9 @@ public class PeliculaService {
 
     public Pelicula replace(Long id, Pelicula pelicula) {
 
-        return this.peliculaRepository.findById(id).map( p -> (id.equals(pelicula.getIdPelicula())  ?
+        return this.peliculaRepository.findById(id).map( p -> (id.equals(pelicula.getId_pelicula())  ?
                                                             this.peliculaRepository.save(pelicula) : null))
                 .orElseThrow(() -> new PeliculaNotFoundException(id));
-
     }
 
     public void delete(Long id) {
@@ -42,5 +63,4 @@ public class PeliculaService {
                                                         return p;})
                 .orElseThrow(() -> new PeliculaNotFoundException(id));
     }
-
 }

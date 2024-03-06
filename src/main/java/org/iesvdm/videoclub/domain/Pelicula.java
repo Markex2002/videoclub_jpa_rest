@@ -17,9 +17,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @Entity
 @Table(name="pelicula")
-@Data
+
+//Para que funcione la coleccion Set<Pelicula>
+@EqualsAndHashCode(of = "id_pelicula")
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pelicula {
@@ -27,7 +31,7 @@ public class Pelicula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_pelicula")
-    private long idPelicula;
+    private long id_pelicula;
     private String titulo;
     private String descripcion;
     @Column(name = "anyo_lanzamiento")
