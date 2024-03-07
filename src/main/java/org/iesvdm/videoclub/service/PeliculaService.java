@@ -63,4 +63,21 @@ public class PeliculaService {
                                                         return p;})
                 .orElseThrow(() -> new PeliculaNotFoundException(id));
     }
+
+
+
+
+
+
+    public Page<Pelicula> findByTituloContaingIgnoreCaseOrderByTituloAsc(String tituloBuscar){
+        Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "titulo"));
+
+
+        return this.peliculaRepository.findByTituloContaingIgnoreCaseOrderByTituloAsc(tituloBuscar, pageable);
+    }
+
+
+
+
+
 }

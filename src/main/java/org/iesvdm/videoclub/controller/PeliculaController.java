@@ -3,6 +3,7 @@ package org.iesvdm.videoclub.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.videoclub.domain.Pelicula;
 import org.iesvdm.videoclub.service.PeliculaService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +13,18 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/peliculas")
 public class PeliculaController {
     private final PeliculaService peliculaService;
 
     public PeliculaController(PeliculaService peliculaService) {
         this.peliculaService = peliculaService;
+    }
+
+    @GetMapping(value = {"","/"}, params ={"titulo"})
+    public Page<Pelicula> allByTitulo(@RequestParam("titulo") String titulo) {
+        return this.peliculaService.findByTituloContaingIgnoreCaseOrderByTituloAsc(titulo);
     }
 
     @GetMapping(value = {"","/"}, params ={"!pagina", "!tamanio"})
@@ -60,6 +66,4 @@ public class PeliculaController {
     public void deletePelicula(@PathVariable("id") Long id) {
         this.peliculaService.delete(id);
     }
-
-
 }
