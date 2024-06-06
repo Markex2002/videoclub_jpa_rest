@@ -36,13 +36,11 @@ public class VideoclubApplication implements CommandLineRunner {
 
 
         Tarjeta tarjeta = new Tarjeta();
-        tarjeta.setNumero(1);
         Date date = new Date(2014, Calendar.FEBRUARY,12);
         tarjeta.setCaducidad(date);
 
         Socio socio = new Socio();
-        socio.setDni(80213);
-        socio.setNombre("Martin");
+        socio.setNombre("Marco");
         socio.setApellidos("Martin");
 
         tarjeta.setSocio(socio);
