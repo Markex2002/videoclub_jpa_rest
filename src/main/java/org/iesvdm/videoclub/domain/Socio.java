@@ -22,7 +22,8 @@ public class Socio {
     @Column(name = "apellidos", length = 50)
     private String apellidos;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "numero_Tarjeta", foreignKey = @ForeignKey(name = "FK_numero_Tarjeta"))
+
+    @OneToOne(mappedBy = "socio",
+            cascade = CascadeType.ALL)
     private Tarjeta tarjeta;
 }

@@ -1,11 +1,11 @@
 package org.iesvdm.videoclub.repository;
 
 import org.iesvdm.videoclub.domain.Categoria;
-import org.iesvdm.videoclub.domain.Pelicula;
+import org.iesvdm.videoclub.domain.Tarjeta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
+public interface TarjetaRepository extends JpaRepository<Tarjeta, Long> {
 
 }

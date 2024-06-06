@@ -69,15 +69,10 @@ public class PeliculaService {
 
 
 
-    public Page<Pelicula> findByTituloContaingIgnoreCaseOrderByTituloAsc(String tituloBuscar){
+    public Page<Pelicula> findByTituloContainingIgnoreCaseOrderByTituloAsc(String tituloBuscar){
         Pageable pageable = PageRequest.of(0, 10, Sort.by(Sort.Direction.ASC, "titulo"));
 
 
-        return this.peliculaRepository.findByTituloContaingIgnoreCaseOrderByTituloAsc(tituloBuscar, pageable);
+        return this.peliculaRepository.findByTituloContainingIgnoreCaseOrderByTituloAsc(tituloBuscar, pageable);
     }
-
-
-
-
-
 }

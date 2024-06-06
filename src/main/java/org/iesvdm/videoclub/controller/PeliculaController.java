@@ -24,7 +24,7 @@ public class PeliculaController {
 
     @GetMapping(value = {"","/"}, params ={"titulo"})
     public Page<Pelicula> allByTitulo(@RequestParam("titulo") String titulo) {
-        return this.peliculaService.findByTituloContaingIgnoreCaseOrderByTituloAsc(titulo);
+        return this.peliculaService.findByTituloContainingIgnoreCaseOrderByTituloAsc(titulo);
     }
 
     @GetMapping(value = {"","/"}, params ={"!pagina", "!tamanio"})

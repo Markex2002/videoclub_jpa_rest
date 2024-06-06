@@ -20,6 +20,8 @@ public class Tarjeta {
     @Column(name = "caducidad")
     private Date caducidad;
 
-    @OneToOne(mappedBy = "tarjeta")
+
+    @OneToOne()
+    @JoinColumn(name = "socio_ID")
     private Socio socio;
 }
