@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,18 +19,23 @@ import java.util.Set;
 @Table(name="pelicula")
 
 //Para que funcione la coleccion Set<Pelicula>
-@EqualsAndHashCode(of = "id_pelicula")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pelicula {
 
     @Id
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_pelicula")
     private long id_pelicula;
+
     private String titulo;
+
     private String descripcion;
+
     @Column(name = "anyo_lanzamiento")
     @JsonFormat(pattern = "yyyy",  shape = JsonFormat.Shape.STRING)
     private Date anyoLanzamiento;
@@ -60,15 +62,18 @@ public class Pelicula {
     @Column(name = "caracteristicas_especiales")
     private String caracteristicasEspeciales;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "pelicula_categoria",
             joinColumns = @JoinColumn(name = "id_pelicula", referencedColumnName = "id_pelicula"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria"))
     Set<Categoria> categorias = new HashSet<>();
 
-    //
-    //@Column(name = "ultima_actualizacion")
-    //@JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",  shape = JsonFormat.Shape.STRING)
-    //private Date ultimaActualizacion;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "pelicula_actor",
+            joinColumns = @JoinColumn(name = "id_pelicula", referencedColumnName = "id_pelicula"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "actor_id"))
+    Set<Actor> actores = new HashSet<>();
 }

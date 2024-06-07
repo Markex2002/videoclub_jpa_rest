@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "categoria")
 
-@EqualsAndHashCode(of = "nombre")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @Data
 @AllArgsConstructor
@@ -24,9 +24,10 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoria")
-    private long id;
+    private long id_categoria;
 
     @NaturalId
+    @EqualsAndHashCode.Include
     private String nombre;
 
     @ManyToMany(

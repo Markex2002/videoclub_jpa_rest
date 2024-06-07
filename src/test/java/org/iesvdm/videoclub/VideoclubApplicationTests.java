@@ -1,21 +1,30 @@
 package org.iesvdm.videoclub;
 
 import jakarta.transaction.Transactional;
-import org.iesvdm.videoclub.domain.Comentario;
-import org.iesvdm.videoclub.domain.Tutorial;
-import org.iesvdm.videoclub.repository.TutorialRepository;
+import org.iesvdm.videoclub.domain.*;
+import org.iesvdm.videoclub.repository.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Date;
-import java.util.HashSet;
+import java.math.BigDecimal;
+import java.util.*;
 
 @SpringBootTest
 class VideoclubApplicationTests {
 
     @Autowired
     TutorialRepository tutorialRepository;
+    @Autowired
+    CategoriaRepository categoriaRepository;
+    @Autowired
+    IdiomaRepository idiomaRepository;
+    @Autowired
+    PeliculaRepository peliculaRepository;
+    @Autowired
+    SocioRepository socioRepository;
+    @Autowired
+    TarjetaRepository tarjetaRepository;
 
     @Test
     void contextLoads() {
@@ -27,6 +36,117 @@ class VideoclubApplicationTests {
          var tutorialList = tutorialRepository.findAll();
          tutorialList.forEach(tutorial -> System.out.println(tutorial));
     }
+
+    @Test
+    void pruebaCRUDPeliculaCategoria(){
+        ////PRUEBAS DE CREACION PELICULA-CATEGORÍA////
+        Idioma idioma = Idioma.builder()
+                .id(1L)
+                .nombre("Español")
+                .peliculasIdioma(new ArrayList<Pelicula>())
+                .peliculasIdiomaOriginal(new ArrayList<Pelicula>())
+                .ultimaActualizacion(new Date())
+                .build();
+        idiomaRepository.save(idioma);
+
+
+        Categoria categoriaTerror = Categoria.builder()
+                .id_categoria(0)
+                .nombre("Terror")
+                .peliculas(new HashSet<Pelicula>())
+                .ultimaActualizacion(new Date())
+                .build();
+        categoriaRepository.save(categoriaTerror);
+
+        Categoria categoriaComedia = Categoria.builder()
+                .id_categoria(0)
+                .nombre("Comedia")
+                .peliculas(new HashSet<Pelicula>())
+                .ultimaActualizacion(new Date())
+                .build();
+        categoriaRepository.save(categoriaComedia);
+
+        Categoria categoriaAccion = Categoria.builder()
+                .id_categoria(0)
+                .nombre("Accion")
+                .peliculas(new HashSet<Pelicula>())
+                .ultimaActualizacion(new Date())
+                .build();
+        categoriaRepository.save(categoriaAccion);
+
+        //Creamos un listado de las categorías
+        Set<Categoria> listadoCategorias1 = new HashSet<>();
+        listadoCategorias1.add(categoriaComedia);
+        listadoCategorias1.add(categoriaTerror);
+
+        Set<Categoria> listadoCategorias2 = new HashSet<>();
+        listadoCategorias2.add(categoriaTerror);
+        listadoCategorias2.add(categoriaAccion);
+
+        Pelicula pelicula1 = Pelicula.builder()
+                .id_pelicula(1)
+                .categorias(listadoCategorias1)
+                .duracionAlquiler(0)
+                .descripcion("Lorem Ipsum")
+                .anyoLanzamiento(new Date())
+                .actores(new HashSet<Actor>())
+                .clasificacion("+12")
+                .duracion(0)
+                .titulo("MortadeloYFilemon, que locuron")
+                .idioma(idioma)
+                .idiomaOriginal(idioma)
+                .rentalRate(BigDecimal.ZERO)
+                .replacementCost(BigDecimal.ZERO)
+                .duracionAlquiler(0)
+                .caracteristicasEspeciales("Es tronchante")
+                .build();
+        peliculaRepository.save(pelicula1);
+
+        Pelicula pelicula2 = Pelicula.builder()
+                .id_pelicula(2)
+                .categorias(listadoCategorias2)
+                .duracionAlquiler(0)
+                .descripcion("Lorem Ipsum")
+                .anyoLanzamiento(new Date())
+                .actores(new HashSet<Actor>())
+                .clasificacion("+12")
+                .duracion(0)
+                .titulo("ZipiYZape, menudo disparate")
+                .idioma(idioma)
+                .idiomaOriginal(idioma)
+                .rentalRate(BigDecimal.ZERO)
+                .replacementCost(BigDecimal.ZERO)
+                .duracionAlquiler(0)
+                .caracteristicasEspeciales("Es hilarante")
+                .build();
+        peliculaRepository.save(pelicula2);
+
+
+
+
+    }
+
+
+
+    @Test
+    @Transactional
+    void pruebaCreacionSocioTarjeta(){
+        Tarjeta tarjeta = new Tarjeta();
+        Date date = new Date(2014, Calendar.FEBRUARY,12);
+        tarjeta.setCaducidad(date);
+
+        Socio socio = new Socio();
+        socio.setNombre("Marco");
+        socio.setApellidos("Martin");
+
+        tarjeta.setSocio(socio);
+        socio.setTarjeta(tarjeta);
+
+        socioRepository.save(socio);
+        tarjetaRepository.save(tarjeta);
+    }
+
+
 
 
     @Test

@@ -12,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name="idioma")
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,6 +25,7 @@ public class Idioma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_idioma")
     private Long id;
+
     private String nombre;
 
     @Column(name = "ultima_actualizacion")

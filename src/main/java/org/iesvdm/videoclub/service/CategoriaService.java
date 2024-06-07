@@ -1,11 +1,8 @@
 package org.iesvdm.videoclub.service;
 
 import org.iesvdm.videoclub.domain.Categoria;
-import org.iesvdm.videoclub.domain.Pelicula;
 import org.iesvdm.videoclub.exception.CategoriaNotFoundException;
-import org.iesvdm.videoclub.exception.PeliculaNotFoundException;
 import org.iesvdm.videoclub.repository.CategoriaRepository;
-import org.iesvdm.videoclub.repository.PeliculaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +52,7 @@ public class CategoriaService {
 
     public Categoria replace(Long id, Categoria categoria) {
 
-        return this.categoriaRepository.findById(id).map( p -> (id.equals(categoria.getId())  ?
+        return this.categoriaRepository.findById(id).map( p -> (id.equals(categoria.getId_categoria())  ?
                                                             this.categoriaRepository.save(categoria) : null))
                 .orElseThrow(() -> new CategoriaNotFoundException(id));
     }

@@ -1,0 +1,16 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+body{
+    background-color: #e6feff;
+}
+
+.maximo{
+    background-color: green;
+}
+
+.minimo{
+    background-color: yellow;
+}
