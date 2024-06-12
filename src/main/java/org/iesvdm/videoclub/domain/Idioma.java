@@ -24,7 +24,7 @@ public class Idioma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_idioma")
-    private Long id;
+    private long id;
 
     private String nombre;
 

@@ -9,9 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class CategoriaService {
@@ -25,7 +23,6 @@ public class CategoriaService {
     public List<Categoria> all() {
         return this.categoriaRepository.findAll();
     }
-
 
     public Map<String, Object> all(int pagina, int tamanio) {
         Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id_categoria").ascending());
@@ -61,5 +58,28 @@ public class CategoriaService {
         this.categoriaRepository.findById(id).map(p -> {this.categoriaRepository.delete(p);
                                                         return p;})
                 .orElseThrow(() -> new CategoriaNotFoundException(id));
+    }
+
+
+
+
+
+
+    //
+    public List<Categoria>allByQueryFiltersStream(Optional<String> buscarOptional, Optional<String> ordenarOptional){
+        List<Categoria> resultado = new ArrayList<>();
+
+        if(buscarOptional.isPresent()){
+            resultado =categoriaRepository.findByNombreContainingIgnoreCase(buscarOptional.get());
+        }
+        if (ordenarOptional.isPresent()) {
+            if (buscarOptional.isPresent() && "asc".equalsIgnoreCase(ordenarOptional.get())) {
+                resultado = categoriaRepository.findByNombreContainingIgnoreCaseOrderByNombreAsc(buscarOptional.get());
+            } else if (buscarOptional.isPresent() && "desc".equalsIgnoreCase(buscarOptional.get())) {
+                resultado = categoriaRepository.findByNombreContainingIgnoreCaseOrderByNombreDesc(buscarOptional.get());
+            }
+        }
+
+        return resultado;
     }
 }

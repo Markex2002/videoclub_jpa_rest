@@ -41,7 +41,7 @@ class VideoclubApplicationTests {
     void pruebaCRUDPeliculaCategoria(){
         ////PRUEBAS DE CREACION PELICULA-CATEGORÍA////
         Idioma idioma = Idioma.builder()
-                .id(1L)
+                .id(0)
                 .nombre("Español")
                 .peliculasIdioma(new ArrayList<Pelicula>())
                 .peliculasIdiomaOriginal(new ArrayList<Pelicula>())
@@ -74,17 +74,36 @@ class VideoclubApplicationTests {
                 .build();
         categoriaRepository.save(categoriaAccion);
 
+        Categoria categoriaAccionFamiliar = Categoria.builder()
+                .id_categoria(0)
+                .nombre("Accion Familiar")
+                .peliculas(new HashSet<Pelicula>())
+                .ultimaActualizacion(new Date())
+                .build();
+        categoriaRepository.save(categoriaAccionFamiliar);
+
+        Categoria categoriaAccionAulta = Categoria.builder()
+                .id_categoria(0)
+                .nombre("Accion Adulta")
+                .peliculas(new HashSet<Pelicula>())
+                .ultimaActualizacion(new Date())
+                .build();
+        categoriaRepository.save(categoriaAccionAulta);
+
         //Creamos un listado de las categorías
         Set<Categoria> listadoCategorias1 = new HashSet<>();
         listadoCategorias1.add(categoriaComedia);
         listadoCategorias1.add(categoriaTerror);
+        listadoCategorias1.add(categoriaAccionFamiliar);
 
         Set<Categoria> listadoCategorias2 = new HashSet<>();
         listadoCategorias2.add(categoriaTerror);
-        listadoCategorias2.add(categoriaAccion);
+        listadoCategorias2.add(categoriaAccionFamiliar);
+        listadoCategorias2.add(categoriaAccionAulta);
+        //listadoCategorias2.add(categoriaAccion);
 
         Pelicula pelicula1 = Pelicula.builder()
-                .id_pelicula(1)
+                .id_pelicula(0)
                 .categorias(listadoCategorias1)
                 .duracionAlquiler(0)
                 .descripcion("Lorem Ipsum")
@@ -103,7 +122,7 @@ class VideoclubApplicationTests {
         peliculaRepository.save(pelicula1);
 
         Pelicula pelicula2 = Pelicula.builder()
-                .id_pelicula(2)
+                .id_pelicula(0)
                 .categorias(listadoCategorias2)
                 .duracionAlquiler(0)
                 .descripcion("Lorem Ipsum")
@@ -122,6 +141,26 @@ class VideoclubApplicationTests {
         peliculaRepository.save(pelicula2);
 
 
+        Pelicula pelicula3 = Pelicula.builder()
+                .id_pelicula(0)
+                .categorias(listadoCategorias1)
+                .duracionAlquiler(0)
+                .descripcion("Lorem Ipsum")
+                .anyoLanzamiento(new Date())
+                .actores(new HashSet<Actor>())
+                .clasificacion("+7")
+                .duracion(0)
+                .titulo("Rompetechos, acabo maltrecho")
+                .idioma(idioma)
+                .idiomaOriginal(idioma)
+                .rentalRate(BigDecimal.ZERO)
+                .replacementCost(BigDecimal.ZERO)
+                .duracionAlquiler(0)
+                .caracteristicasEspeciales("Lo nunca visto")
+                .build();
+        peliculaRepository.save(pelicula3);
+
+
         //Prueba para editar una entidad ya creada
         pelicula2.setDescripcion("ANSMDOHASDUHASUIOD");
         peliculaRepository.save(pelicula2);
@@ -131,7 +170,8 @@ class VideoclubApplicationTests {
         peliculaRepository.deleteById(2L);
 
 
-
+        //Prueba para editar una entidad ya creada
+        peliculaRepository.save(pelicula2);
     }
 
 
