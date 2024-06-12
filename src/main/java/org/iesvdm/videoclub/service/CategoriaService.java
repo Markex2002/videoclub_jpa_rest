@@ -59,12 +59,6 @@ public class CategoriaService {
                                                         return p;})
                 .orElseThrow(() -> new CategoriaNotFoundException(id));
     }
-
-
-
-
-
-
     //
     public List<Categoria>allByQueryFiltersStream(Optional<String> buscarOptional, Optional<String> ordenarOptional){
         List<Categoria> resultado = new ArrayList<>();
