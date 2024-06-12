@@ -122,10 +122,13 @@ class VideoclubApplicationTests {
         peliculaRepository.save(pelicula2);
 
 
-        //Probamos a editar una entidad ya creada
+        //Prueba para editar una entidad ya creada
         pelicula2.setDescripcion("ANSMDOHASDUHASUIOD");
-
         peliculaRepository.save(pelicula2);
+
+
+        //Prueba para borrar una Entidad
+        peliculaRepository.deleteById(2L);
 
 
 
