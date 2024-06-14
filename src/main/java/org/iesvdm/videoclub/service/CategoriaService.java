@@ -71,6 +71,10 @@ public class CategoriaService {
                 resultado = categoriaRepository.findByNombreContainingIgnoreCaseOrderByNombreAsc(buscarOptional.get());
             } else if (buscarOptional.isPresent() && "desc".equalsIgnoreCase(buscarOptional.get())) {
                 resultado = categoriaRepository.findByNombreContainingIgnoreCaseOrderByNombreDesc(buscarOptional.get());
+            } else if (buscarOptional.isEmpty() && "asc".equalsIgnoreCase(ordenarOptional.get())) {
+                resultado = categoriaRepository.findAllByOrderByNombreAsc();
+            } else if (buscarOptional.isEmpty() && "desc".equalsIgnoreCase(ordenarOptional.get())) {
+                resultado = categoriaRepository.findAllByOrderByNombreDesc();
             }
         }
 
