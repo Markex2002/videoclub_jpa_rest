@@ -1,8 +1,10 @@
 package org.iesvdm.videoclub.service;
 
+import jakarta.persistence.EntityManager;
 import org.iesvdm.videoclub.domain.Pelicula;
 import org.iesvdm.videoclub.exception.PeliculaNotFoundException;
 import org.iesvdm.videoclub.repository.PeliculaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,9 @@ import java.util.Map;
 
 @Service
 public class PeliculaService {
+
+    @Autowired
+    EntityManager entityManager;
 
     private final PeliculaRepository peliculaRepository;
 
@@ -42,6 +47,7 @@ public class PeliculaService {
         return response;
     }
 
+
     public Pelicula save(Pelicula pelicula) {
         return this.peliculaRepository.save(pelicula);
     }
@@ -63,9 +69,6 @@ public class PeliculaService {
                                                         return p;})
                 .orElseThrow(() -> new PeliculaNotFoundException(id));
     }
-
-
-
 
 
 
