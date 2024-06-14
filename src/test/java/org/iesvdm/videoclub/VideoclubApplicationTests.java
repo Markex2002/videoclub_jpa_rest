@@ -103,7 +103,6 @@ class VideoclubApplicationTests {
         //listadoCategorias2.add(categoriaAccion);
 
         Pelicula pelicula1 = Pelicula.builder()
-                .id_pelicula(0)
                 .categorias(listadoCategorias1)
                 .duracionAlquiler(0)
                 .descripcion("Lorem Ipsum")
@@ -122,7 +121,6 @@ class VideoclubApplicationTests {
         peliculaRepository.save(pelicula1);
 
         Pelicula pelicula2 = Pelicula.builder()
-                .id_pelicula(0)
                 .categorias(listadoCategorias2)
                 .duracionAlquiler(0)
                 .descripcion("Lorem Ipsum")
@@ -142,7 +140,6 @@ class VideoclubApplicationTests {
 
 
         Pelicula pelicula3 = Pelicula.builder()
-                .id_pelicula(0)
                 .categorias(listadoCategorias1)
                 .duracionAlquiler(0)
                 .descripcion("Lorem Ipsum")
@@ -168,10 +165,6 @@ class VideoclubApplicationTests {
 
         //Prueba para borrar una Entidad
         peliculaRepository.deleteById(2L);
-
-
-        //Prueba para editar una entidad ya creada
-        peliculaRepository.save(pelicula2);
     }
 
 

@@ -33,7 +33,6 @@ public class Pelicula {
     private long id_pelicula;
 
     private String titulo;
-
     private String descripcion;
 
     @Column(name = "anyo_lanzamiento")
