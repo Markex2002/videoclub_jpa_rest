@@ -58,20 +58,22 @@ public class PeliculaService {
         }
         return peliculas;
     }
+
+
     public List<Pelicula> allOrdenDosCampos(String[] orden1, String[] orden2) {
-        List<Pelicula> peliculas1;
+        List<Pelicula> peliculas;
         List<Pelicula> peliculas2;
         if (orden1[1].equalsIgnoreCase("ASC")){
-            peliculas1 = peliculaRepository.findAll(Sort.by(Sort.Direction.ASC, orden1[0]));
+            peliculas = peliculaRepository.findAll(Sort.by(Sort.Direction.ASC, orden1[0]));
         } else {
-            peliculas1 = peliculaRepository.findAll(Sort.by(Sort.Direction.DESC, orden1[0]));
+            peliculas = peliculaRepository.findAll(Sort.by(Sort.Direction.DESC, orden1[0]));
         }
         if (orden2[1].equalsIgnoreCase("ASC")){
             peliculas2 = peliculaRepository.findAll(Sort.by(Sort.Direction.ASC, orden1[0]));
         } else {
             peliculas2 = peliculaRepository.findAll(Sort.by(Sort.Direction.DESC, orden1[0]));
         }
-        return peliculas1;
+        return peliculas;
     }
 
 
