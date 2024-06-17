@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,17 @@ public class PeliculaService {
         response.put("totalPages", pageAll.getTotalPages());
 
         return response;
+    }
+
+    public List<Pelicula> allOrdenCampo(String[] orden) {
+        List<Pelicula> peliculas = new ArrayList<>();
+        if (orden[1].equalsIgnoreCase("ASC")){
+            peliculas = peliculaRepository.findAll(Sort.by(Sort.Direction.ASC, orden[0]));
+        } else {
+            peliculas = peliculaRepository.findAll(Sort.by(Sort.Direction.DESC, orden[0]));
+        }
+
+        return peliculas;
     }
 
 

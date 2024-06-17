@@ -27,14 +27,14 @@ public class PeliculaController {
         return this.peliculaService.findByTituloContainingIgnoreCaseOrderByTituloAsc(titulo);
     }
 
-    @GetMapping(value = {"","/"}, params ={"!pagina", "!tamanio"})
+    @GetMapping(value = {"","/"}, params ={"!pagina", "!tamanio", "!orden"})
     public List<Pelicula> all() {
         log.info("Accediendo a todas las películas");
         return this.peliculaService.all();
     }
 
 
-    @GetMapping(value ={"", "/"})
+    @GetMapping(value ={"", "/"}, params = {"!orden"})
     public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "0") int pagina
         , @RequestParam(value = "tamanio", defaultValue = "3") int tamanio){
 
@@ -43,6 +43,13 @@ public class PeliculaController {
 
         return ResponseEntity.ok(responseAll);
     }
+
+    @GetMapping(value ={"", "/"}, params = {"orden"})
+    public List<Pelicula> allCampoOrden(@RequestParam(value = "orden", defaultValue = "") String[] orden){
+        return peliculaService.allOrdenCampo(orden);
+    }
+
+
 
     @PostMapping({"","/"})
     public Pelicula newPelicula(@RequestBody Pelicula pelicula) {
