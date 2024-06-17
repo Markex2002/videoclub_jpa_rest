@@ -27,27 +27,36 @@ public class PeliculaController {
         return this.peliculaService.findByTituloContainingIgnoreCaseOrderByTituloAsc(titulo);
     }
 
-    @GetMapping(value = {"","/"}, params ={"!pagina", "!tamanio", "!orden"})
+    @GetMapping(value = {"","/"}, params ={"!paginado", "!orden", "!orden1", "!orden2"})
     public List<Pelicula> all() {
         log.info("Accediendo a todas las películas");
         return this.peliculaService.all();
     }
 
 
-    @GetMapping(value ={"", "/"}, params = {"!orden"})
-    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "pagina", defaultValue = "0") int pagina
-        , @RequestParam(value = "tamanio", defaultValue = "3") int tamanio){
+    @GetMapping(value ={"", "/"}, params = {"paginado", "!orden", "!orden1", "!orden2"})
+    public ResponseEntity<Map<String, Object>> all(@RequestParam(value = "paginado", defaultValue = "0") int[] paginado){
 
         log.info("Accediendo a todas las Peliculas con Paginacion");
-        Map<String, Object> responseAll = this.peliculaService.all(pagina, tamanio);
+        Map<String, Object> responseAll = this.peliculaService.all(paginado);
 
         return ResponseEntity.ok(responseAll);
     }
 
-    @GetMapping(value ={"", "/"}, params = {"orden"})
+    @GetMapping(value ={"", "/"}, params = {"orden", "!orden1", "!orden2"})
     public List<Pelicula> allCampoOrden(@RequestParam(value = "orden", defaultValue = "") String[] orden){
         return peliculaService.allOrdenCampo(orden);
     }
+
+    @GetMapping(value ={"", "/"}, params = {"orden1", "orden2"})
+    public List<Pelicula> allCampoDobleOrden(@RequestParam(value = "orden1", defaultValue = "") String[] orden1,
+                                             @RequestParam(value = "orden2", defaultValue = "") String[] orden2){
+        return peliculaService.allOrdenDosCampos(orden1, orden2);
+    }
+
+
+
+
 
 
 

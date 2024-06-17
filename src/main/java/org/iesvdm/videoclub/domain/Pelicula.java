@@ -29,8 +29,7 @@ public class Pelicula {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_pelicula")
-    private long id_pelicula;
+    private long id;
 
     private String titulo;
     private String descripcion;
@@ -64,7 +63,7 @@ public class Pelicula {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "pelicula_categoria",
-            joinColumns = @JoinColumn(name = "id_pelicula", referencedColumnName = "id_pelicula"),
+            joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria"))
     Set<Categoria> categorias = new HashSet<>();
 
@@ -72,7 +71,7 @@ public class Pelicula {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "pelicula_actor",
-            joinColumns = @JoinColumn(name = "id_pelicula", referencedColumnName = "id_pelicula"),
+            joinColumns = @JoinColumn(name = "id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id", referencedColumnName = "actor_id"))
     Set<Actor> actores = new HashSet<>();
 }

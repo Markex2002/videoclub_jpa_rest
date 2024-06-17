@@ -157,6 +157,24 @@ class VideoclubApplicationTests {
                 .build();
         peliculaRepository.save(pelicula3);
 
+        Pelicula pelicula4 = Pelicula.builder()
+                .categorias(listadoCategorias1)
+                .duracionAlquiler(0)
+                .descripcion("Lorem Ipsum")
+                .anyoLanzamiento(new Date())
+                .actores(new HashSet<Actor>())
+                .clasificacion("+7")
+                .duracion(0)
+                .titulo("MortadeloYFilemon, que locuron")
+                .idioma(idioma)
+                .idiomaOriginal(idioma)
+                .rentalRate(BigDecimal.ZERO)
+                .replacementCost(BigDecimal.ZERO)
+                .duracionAlquiler(0)
+                .caracteristicasEspeciales("A la locura")
+                .build();
+        peliculaRepository.save(pelicula4);
+
 
         //Prueba para editar una entidad ya creada
         pelicula2.setDescripcion("ANSMDOHASDUHASUIOD");
@@ -170,7 +188,6 @@ class VideoclubApplicationTests {
 
 
     @Test
-    @Transactional
     void pruebaCreacionSocioTarjeta(){
         Tarjeta tarjeta = new Tarjeta();
         Date date = new Date(2014, Calendar.FEBRUARY,12);
@@ -191,7 +208,6 @@ class VideoclubApplicationTests {
 
 
     @Test
-    @Transactional
     void pruebaGabarOneToMany(){
         Tutorial tutorial = Tutorial.builder()
                 .id(0)
@@ -219,7 +235,6 @@ class VideoclubApplicationTests {
 
 
     @Test
-    @Transactional
     void PruebaEliminarComentario(){
         var optionalTutorial = this.tutorialRepository.findById(1L);
 

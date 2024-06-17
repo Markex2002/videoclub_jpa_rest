@@ -1,6 +1,7 @@
 package org.iesvdm.videoclub.service;
 
 import jakarta.persistence.EntityManager;
+import org.hibernate.query.Order;
 import org.iesvdm.videoclub.domain.Pelicula;
 import org.iesvdm.videoclub.exception.PeliculaNotFoundException;
 import org.iesvdm.videoclub.repository.PeliculaRepository;
@@ -34,8 +35,8 @@ public class PeliculaService {
     }
 
 
-    public Map<String, Object> all(int pagina, int tamanio) {
-        Pageable paginado = PageRequest.of(pagina, tamanio, Sort.by("id_pelicula").ascending());
+    public Map<String, Object> all(int[] datosPaginado) {
+        Pageable paginado = PageRequest.of(datosPaginado[0], datosPaginado[1], Sort.by("id").ascending());
 
         Page<Pelicula> pageAll = this.peliculaRepository.findAll(paginado);
         Map<String, Object> response = new HashMap<>();
@@ -49,14 +50,28 @@ public class PeliculaService {
     }
 
     public List<Pelicula> allOrdenCampo(String[] orden) {
-        List<Pelicula> peliculas = new ArrayList<>();
+        List<Pelicula> peliculas;
         if (orden[1].equalsIgnoreCase("ASC")){
             peliculas = peliculaRepository.findAll(Sort.by(Sort.Direction.ASC, orden[0]));
         } else {
             peliculas = peliculaRepository.findAll(Sort.by(Sort.Direction.DESC, orden[0]));
         }
-
         return peliculas;
+    }
+    public List<Pelicula> allOrdenDosCampos(String[] orden1, String[] orden2) {
+        List<Pelicula> peliculas1;
+        List<Pelicula> peliculas2;
+        if (orden1[1].equalsIgnoreCase("ASC")){
+            peliculas1 = peliculaRepository.findAll(Sort.by(Sort.Direction.ASC, orden1[0]));
+        } else {
+            peliculas1 = peliculaRepository.findAll(Sort.by(Sort.Direction.DESC, orden1[0]));
+        }
+        if (orden2[1].equalsIgnoreCase("ASC")){
+            peliculas2 = peliculaRepository.findAll(Sort.by(Sort.Direction.ASC, orden1[0]));
+        } else {
+            peliculas2 = peliculaRepository.findAll(Sort.by(Sort.Direction.DESC, orden1[0]));
+        }
+        return peliculas1;
     }
 
 
@@ -71,7 +86,7 @@ public class PeliculaService {
 
     public Pelicula replace(Long id, Pelicula pelicula) {
 
-        return this.peliculaRepository.findById(id).map( p -> (id.equals(pelicula.getId_pelicula())  ?
+        return this.peliculaRepository.findById(id).map( p -> (id.equals(pelicula.getId())  ?
                                                             this.peliculaRepository.save(pelicula) : null))
                 .orElseThrow(() -> new PeliculaNotFoundException(id));
     }
